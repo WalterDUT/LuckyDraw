@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<body>
+<form method="Post" action=".">
+    {%csrf_token%}
+    <p><label>Username:</label>{{form.username}}</p>
+    <p><label>Password:</label>{{form.password}}</p>
+    <input type="hidden" name="next" value="/home">
+    <input type="submit" name="login" value="Login">
+</form>
+</body>
+</html>
