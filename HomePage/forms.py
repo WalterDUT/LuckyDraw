@@ -4,6 +4,8 @@ from django import forms
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
+from .models import Document
+
 
 class LoginForm(forms.Form):
     username = forms.CharField()
@@ -38,11 +40,13 @@ class RegistrationForm(forms.Form):
         User.objects.create_user(username=self.cleaned_data['username'], email=self.cleaned_data['email'],
                                  password=self.cleaned_data['password'])
 
-from .models import Document
+
 class UploadFileForm(forms.Form):
     title = forms.CharField(max_length=255)
     file = forms.FileField()
+
+
 class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
-        fields = ('description', 'document', )
+        fields = ('description', 'document',)

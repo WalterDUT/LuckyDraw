@@ -1,15 +1,20 @@
+import openpyxl
 from django.contrib import auth
 from django.core.files.storage import FileSystemStorage
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
+from openpyxl import load_workbook
 
 from .forms import RegistrationForm
 from .forms import LoginForm
-
 from .forms import UploadFileForm
 from .models import handle_uploaded_file
+from .models import Customer
 from .forms import DocumentForm
+from django.shortcuts import redirect
+from pyexcel_xlsx import get_data as xlsx_get
+from django.utils.datastructures import MultiValueDictKeyError
 
 
 # Create your views here.
@@ -90,26 +95,68 @@ def upload_file(request):
     return render(request, 'upload.html', {'form': form})
 
 
+from .models import import_data
+
+
 def simple_upload(request):
     if request.method == 'POST' and request.FILES['myfile']:
         myfile = request.FILES['myfile']
         fs = FileSystemStorage()
         filename = fs.save(myfile.name, myfile)
         uploaded_file_url = fs.url(filename)
-        return render(request, 'pages/simple_upload.html', {
+        test = import_data(uploaded_file_url)
+        print(test)
+        return render(request, 'page/simple_upload.html', {
             'uploaded_file_url': uploaded_file_url
         })
     return render(request, 'pages/simple_upload.html')
 
 
 def model_form_upload(request):
-    if request.method == 'POST':
-        form = DocumentForm(request.POST, request.FILES)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/home')
+    if "GET" == request.method:
+        return render(request, 'pages/model_form_upload.html', {})
     else:
-        form = DocumentForm()
-    return render(request, 'pages/model_form_upload.html', {
-        'form': form
-    })
+        excel_file = request.FILES["excel_file"]
+        # you may put validations here to check extension or file size
+        wb = openpyxl.load_workbook(excel_file)
+
+        # getting a particular sheet by name out of many sheets
+        worksheet = wb["Sheet1"]
+        print(worksheet)
+
+        excel_data = list()
+        # iterating over the rows and
+        # getting value from each cell in row
+        for row in worksheet.iter_rows():
+            row_data = list()
+            for cell in row:
+                row_data.append(str(cell.value))
+            excel_data.append(row_data)
+        return render(request, 'pages/model_form_upload.html', {"excel_data": excel_data})
+
+# class ParseExcel():
+#     def post(self, request):
+#         try:
+#             excel_file = request.FILES['files']
+#         except MultiValueDictKeyError:
+#             return redirect('pages/home.html')
+#         if (str(excel_file).split('.')[-1] == "xlsx"):
+#             data = xlsx_get(excel_file, column_limit=4)
+#         else:
+#             return redirect('pages/home.html')
+#         customers = data["CSKH"]
+#         if len(customers) > 1:  # We have numbers data
+#             for customer in customers:
+#                 if len(customer) > 0:  # The row is not blank
+#                     if customer[0] != 'STT':  # This is not header
+#                         # Fill ending columns with blank
+#                         if len(customer) < 8:
+#                             i = len(customer)
+#                             while i < 4:
+#                                 customer.append("")
+#                                 i += 1
+#                                 # Check if name exist
+#                                 # Assume that name is unique
+#                                 c = Customer.objects.filter(name=customer[1])
+#                                 if c.count() == 0:
+#                                     Customer.objects.create(name=customer[1], number=customer[7])
