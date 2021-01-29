@@ -20,8 +20,7 @@ class Document(models.Model):
 
 
 def import_data(file_read):
-    linklocal = 'C:\\Users\\ADMIN\\Desktop\\PycharmProjects\\LuckyDraw\\' + file_read
-    xl = pd.ExcelFile(linklocal)
+    xl = pd.ExcelFile(file_read)
     with open(file_read, "r") as cus_list:
         data = pd.read_excel(xl, 0, header=None)
         # print(data)
@@ -48,19 +47,19 @@ def chose_cus(list_cus):
     flagSecond = {"name": None, "status": False}
     flagThird1 = {"name": None, "status": False}
     flagThird2 = {"name": None, "status": False}
-    return_data = {flagFirst, flagSecond, flagThird1, flagThird2}
+    # return_data = {flagFirst, flagSecond, flagThird1, flagThird2}
     while True:
         flagComplete = False
         list_lucky_rand = random_cus(100)
         for i in list_lucky_rand:
             if i in list_cus:
                 if flagFirst["status"] == False:
-                    print("Giai nhat thuoc ve", list_cus[i])
+                    print("Giai nhat thuoc ve", list_cus[i], "mang ma so:", i)
                     flagFirst["status"] = True
                     flagFirst["name"] = list_cus[i]
                     continue
                 elif flagSecond["status"] == False and flagFirst["name"] != list_cus[i]:
-                    print("Giai nhi thuoc ve", list_cus[i])
+                    print("Giai nhi thuoc ve", list_cus[i], "mang ma so:", i)
                     flagSecond["status"] = True
                     flagSecond["name"] = list_cus[i]
                     continue
@@ -69,7 +68,7 @@ def chose_cus(list_cus):
                         and flagFirst["name"] != list_cus[i]
                         and flagSecond["name"] != list_cus[i]
                 ):
-                    print("Giai ba thuoc ve", list_cus[i])
+                    print("Giai ba thuoc ve", list_cus[i], "mang ma so:", i)
                     flagThird1["status"] = True
                     flagThird1["name"] = list_cus[i]
                     continue
@@ -79,7 +78,7 @@ def chose_cus(list_cus):
                             and flagThird1["name"] != list_cus[i]
                             and flagSecond["name"] != list_cus[i]
                     ):
-                        print("Giai ba thuoc ve", list_cus[i])
+                        print("Giai ba thuoc ve", list_cus[i], "mang ma so:", i)
                         flagThird2["status"] = True
                         flagThird2["name"] = list_cus[i]
                         flagComplete = True
@@ -88,4 +87,5 @@ def chose_cus(list_cus):
                 continue
         if flagComplete == True:
             break
-    return return_data
+    # return return_data
+    return 0

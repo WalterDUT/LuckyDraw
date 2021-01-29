@@ -14,5 +14,6 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(template_name='pages/home.html'), name='logout'),
     path('simpleupload/', views.simple_upload, name='simple_upload'),
     path('form/', views.model_form_upload, name='model_form_upload'),
+    path('luckynum/',views.luckynum,name='lucky_number'),
     # path('parseExcel/', ParseExcel.post, name='parseExcel'),
 ]

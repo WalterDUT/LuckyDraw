@@ -69,15 +69,8 @@ def user_login(request):
     return render(request, 'pages/login.html', {'form': form})
 
 
-# def auth_view(request):
-#     username = request.POST.get('username', '')
-#     password = request.POST.get('password', '')
-#     user = auth.authenticate(username=username, password=password)
-#     if user is not None:
-#         auth.login(request, user)
-#         return HttpResponseRedirect('/pages/home.html')
-#     else:
-#         return HttpResponseRedirect('/pages/login.html')
+def luckynum(request):
+    return render(request, 'pages/test.html')
 
 
 def logout():
@@ -134,29 +127,5 @@ def model_form_upload(request):
             excel_data.append(row_data)
         return render(request, 'pages/model_form_upload.html', {"excel_data": excel_data})
 
-# class ParseExcel():
-#     def post(self, request):
-#         try:
-#             excel_file = request.FILES['files']
-#         except MultiValueDictKeyError:
-#             return redirect('pages/home.html')
-#         if (str(excel_file).split('.')[-1] == "xlsx"):
-#             data = xlsx_get(excel_file, column_limit=4)
-#         else:
-#             return redirect('pages/home.html')
-#         customers = data["CSKH"]
-#         if len(customers) > 1:  # We have numbers data
-#             for customer in customers:
-#                 if len(customer) > 0:  # The row is not blank
-#                     if customer[0] != 'STT':  # This is not header
-#                         # Fill ending columns with blank
-#                         if len(customer) < 8:
-#                             i = len(customer)
-#                             while i < 4:
-#                                 customer.append("")
-#                                 i += 1
-#                                 # Check if name exist
-#                                 # Assume that name is unique
-#                                 c = Customer.objects.filter(name=customer[1])
-#                                 if c.count() == 0:
-#                                     Customer.objects.create(name=customer[1], number=customer[7])
+def reponse_winner(request):
+    pass
