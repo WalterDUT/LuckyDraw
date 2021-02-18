@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <title>Lucky Draw</title>
+    <!-- Bootstrap CSS -->
+
+    <link href="../../../static/css/bootstrap.min.css" rel="stylesheet"/>
+    <!-- <link href="../../../static/css/bootstrap.min.css" rel="stylesheet" /> -->
+    <link href="https://fonts.googleapis.com/css?family=Teko:400,500,600,700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,500i,700,700i|Teko&display=swap"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background-image: url("../../../media/anh1.png");
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+        }
+
+        img {
+            align-content: center;
+            position: static;
+            width: 60%;
+        }
+
+        .footerlinks {
+            color: #ffffff;
+            text-decoration: none !important;
+        }
+
+        .footerlinks:hover {
+            color: #ffd800;
+        }
+
+        .winnertext {
+
+            font-weight: 500;
+            font-size: 40px;
+            color: #4c27a3;
+        }
+
+        .winnerno {
+            background-color: #ffd800;
+            font-family: 'Teko', sans-serif;
+            font-weight: 600;
+            font-size: 75px;
+            border: 2px solid #fa9747;
+            border-radius: 10px;
+            margin-bottom: 0px;
+            color: #482cc2;
+        }
+
+        .btn {
+            font-family: 'Roboto', sans-serif;
+            font-weight: 400;
+            font-size: 25px;
+        }
+
+        #footer2 {
+            background: #272727;
+        }
+    </style>
+</head>
+
+<body>
+<div class="row">
+    <div class="col">
+        <img src="../../../media/quantrong.jpg" alt="afterimages"
+             style="width: 55%; margin-left: auto;margin-right: auto;display: block"
+             class="card-img-top img-fluid">
+    </div>
+</div>
+
+<div class="row">
+    <div class="col" style="background-color: #FFD700"><h2 style="text-align: center">
+        Chương trình quay số trúng thưởng RẠNG NGỜI ĐÓN XUÂN cùng Việt An Pharma</h2></div>
+
+</div>
+
+<div class="row">
+    <div class="col">
+        <hr/>
+    </div>
+</div>
+
+<div class="col-10 mx-auto">
+    <div class="row mt-0">
+        <div class="col">
+        </div>
+    </div>
+    <div class="row mt-3">
+        <div class="col">
+            <h3 id="level_text" style="margin-bottom: 0; text-align: center; color: #FFD700"></h3>
+            <h3 id="winner_text" style="margin-bottom: 0; text-align: center; color: #FFD700; "></h3>
+            <h3></h3>
+            <!--                    <p id="check_no" class="mx-auto winnertext" value="">1</p>-->
+        </div>
+    </div>
+</div>
+<div class="col-2 mx-auto ">
+    <div class="card" style="background-color: #985f0d">
+        <div class="card-body">
+            <div class="row">
+                <div class="col form-group input-group-lg">
+                    <h2 id="winnertext1" class="display-4 winnerno" style="text-align: center">0</h2>
+                </div>
+                <div class="col form-group input-group-lg">
+                    <h2 id="winnertext2" class="display-4 winnerno" style="text-align: center">0</h2>
+                </div>
+                <div class="col form-group input-group-lg">
+                    <h2 id="winnertext3" class="display-4 winnerno" style="text-align: center">0</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col form-group d-flex mt-3">
+                    <button id="btn1" type="button" class="btn btn-lg btn-block mx-auto btn-success"
+                            style="background-color:#7F007F "
+                            onclick="animateNumber(9, 50, 0, function (number) {
+                document.getElementById('winnertext1').innerText = getRandomInt(0,9)
+                document.getElementById('winnertext2').innerText = getRandomInt(0,9)
+                document.getElementById('winnertext3').innerText = getRandomInt(0,9)
+            })">Quay
+                    </button>
+                    <button id="btn2" type="button" class="btn btn-lg btn-block mx-auto btn-success"
+                            style="background-color: #8B4545"
+                            onclick="stop()">Dừng
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<script src="bootstrap/js/jquery-3.3.1.slim.min.js"></script>-->
+<!--<script src="bootstrap/js/popper.min.js"></script>-->
+<!--<script src="bootstrap/js/bootstrap.min.js"></script>-->
+
+<script>
+    var count = 1;
+    var loop = true;
+
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    // function setTime(first, second, third) {
+    //     window.setTimeout(function () {
+    //         loop = false;
+    //         document.getElementById("winnertext1").innerHTML = number_cus[0].substr(0, 1);
+    //         window.setTimeout(function () {
+    //             document.getElementById("winnertext2").innerHTML = number_cus[0].substr(1, 1);
+    //         }, 2500)
+    //         window.setTimeout(function () {
+    //             document.getElementById("winnertext3").innerHTML = number_cus[0].substr(2, 1);
+    //         }, 2500)
+    //         window.setTimeout(function () {
+    //             document.getElementById("winnertext").innerHTML = "Xin chúc mừng: Giải Ba thuộc về " + customer[0];
+    //         }, 1000)
+    //
+    //     }, 2000)
+    // }
+
+    function stop() {
+        // var x = getRandomInt(0, 9);
+        var customer = ["Nhà thuốc Bảo Thy", "Nhà thuốc Thanh Loan", "Phòng khám BS Vũ","Nhà thuốc Phúc Tin"];
+        var number_cus = ["061", "098", "013","010"];
+        if (count === 1) {
+            count += 1;
+            window.setTimeout(function () {
+                loop = false;
+                document.getElementById("winnertext1").innerHTML = number_cus[0].substr(0, 1);
+                document.getElementById("winnertext2").innerHTML = number_cus[0].substr(1, 1);
+                document.getElementById("winnertext3").innerHTML = number_cus[0].substr(2, 1);
+                window.setTimeout(function () {
+                    document.getElementById("level_text").innerHTML = "GIẢI BA LẦN 1: XIN CHÚC MỪNG";
+                    document.getElementById("winner_text").innerHTML = customer[0];
+                    window.alert("GIẢI BA LẦN 1: XIN CHÚC MỪNG " + customer[0]);
+                }, 1500)
+            }, 3000)
+            // document.getElementById("check_no").value = 2;
+        } else if (count === 2) {
+            // document.getElementById("check_no").value = 3;
+            count += 1;
+            window.setTimeout(function () {
+                loop = false;
+                document.getElementById("winnertext1").innerHTML = number_cus[1].substr(0, 1);
+                document.getElementById("winnertext2").innerHTML = number_cus[1].substr(1, 1);
+                document.getElementById("winnertext3").innerHTML = number_cus[1].substr(2, 1);
+                window.setTimeout(function () {
+                    document.getElementById("level_text").innerHTML = "GIẢI BA LẦN 2: XIN CHÚC MỪNG ";
+                    document.getElementById("winner_text").innerHTML = customer[1];
+                    window.alert("GIẢI BA LẦN 2: XIN CHÚC MỪNG " + customer[1]);
+                }, 1500)
+
+            }, 3000)
+
+        } else if (count === 3) {
+            count += 1;
+            window.setTimeout(function () {
+                loop = false;
+                document.getElementById("winnertext1").innerHTML = number_cus[2].substr(0, 1);
+                document.getElementById("winnertext2").innerHTML = number_cus[2].substr(1, 1);
+                document.getElementById("winnertext3").innerHTML = number_cus[2].substr(2, 1);
+                window.setTimeout(function () {
+                    document.getElementById("level_text").innerHTML = "GIẢI NHÌ: XIN CHÚC MỪNG ";
+                    document.getElementById("winner_text").innerHTML = customer[2];
+                    window.alert("GIẢI NHÌ: XIN CHÚC MỪNG " + customer[2]);
+                }, 1500)
+            }, 3000)
+        } else if (count === 4) {
+            count = 1;
+            window.setTimeout(function () {
+                loop = false;
+                document.getElementById("winnertext1").innerHTML = number_cus[3].substr(0, 1);
+                document.getElementById("winnertext2").innerHTML = number_cus[3].substr(1, 1);
+                document.getElementById("winnertext3").innerHTML = number_cus[3].substr(2, 1);
+                window.setTimeout(function () {
+                    document.getElementById("level_text").innerHTML = "GIẢI NHẤT: XIN CHÚC MỪNG ";
+                    document.getElementById("winner_text").innerHTML = customer[3];
+                    window.alert("GIẢI NHẤT: XIN CHÚC MỪNG " + customer[3]);
+                }, 1500)
+            }, 3000)
+        }
+    }
+
+
+    function animateNumber(finalNumber, delay, startNumber = 0, callback) {
+        let currentNumber = getRandomInt(0, 9);
+        const interval = window.setInterval(updateNumber, delay)
+
+        function updateNumber() {
+            // if (currentNumber >= finalNumber) {
+            //     clearInterval(interval)
+            // } else {
+            //     currentNumber++
+            // }
+            if (loop)
+                callback(currentNumber)
+            else {
+                loop = true;
+                clearInterval(interval);
+            }
+        }
+    }
+
+</script>
+</body>
+</html>

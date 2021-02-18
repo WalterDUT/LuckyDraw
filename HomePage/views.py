@@ -70,7 +70,7 @@ def user_login(request):
 
 
 def luckynum(request):
-    return render(request, 'pages/test.html')
+    return render(request, 'pages/QuaySo.html')
 
 
 def logout():
